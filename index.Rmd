@@ -9,13 +9,13 @@ output:
 
 
 
-## Project thoughts
+## Milestone 2: Project Thoughts
 
 I am interested in exploring data related to basketball, in particular how offensive, defensive, and off-ball statistics influence a player's impact on the game. Alternatively, I'm interested in analyzing data about student debt and how that affects future choices, such as buying a home. Finally, I am possibly interested in looking at food price data and how that affects consumer choices.
 
 Sports players and coaches often emphasize that “defense wins championships.” I want to analyze whether points above average per 100 possessions added by a player on defense have a correlative relationship with how many wins a player’s team accumulates during a season. To analyze this impact I am using a data set that utilizes a sports metric system called RAPTOR. RAPTOR is a plus-minus statistic that measures the number of points a player contributes to his team’s offense and defense per 100 possessions, relative to a league-average player. My hypothesis is that players with a greater number of points above average per 100 possessions on defense over the course of their career will impact the course of their team’s season and how many wins a team accrues. My sample is comprised of all NBA players from the 2014 season onward and tracks their statistics each year they play in the NBA. My unit of analysis is a particular player on a team during a season (i.e. Precious Achiuwa on the Toronto Raptors during the 2022 season). My explanatory variable of interest is the defense point statistics for that player, which is measured in points above average for 100 possessions (thereby indicating an “effective” performance on defense). This is a variable called raptor_onoff_defense which utilizes plus-minus impact data. For context, plus−minus is a sports statistic used to measure a player's impact, represented by the difference between their team's total scoring versus their opponent's when the player is in the game. My outcome variable is the number of wins a team receives in a season. This variable is simply numeric, with a higher number indicating a greater number of wins and a more positive team performance across the season. If I observe a greater number of wins with a positive average defensive points statistic for a player across their career, this would provide support for my hypothesis that players’ defense impacts the margin by which their team wins games. If, on the other hand, I see fewer defensive points stats impacting the number of wins, my hypothesis is incorrect. When I run my regression of the two variables, a positive, significant coefficient would indicate support for my hypothesis.
 
-##Milestone 3
+##Milestone 3: Data Visualization
 
 ```{r, fig.width = 15}
 library(tidyverse)
@@ -24,17 +24,23 @@ raptor <- read.csv("latest_RAPTOR_by_team.csv")
 raptor
 graph <- raptor |>
   filter(season_type == "PO")|>
-  ggplot(mapping = aes(x = team, y = raptor_box_defense))+
-  geom_boxplot()
+  ggplot(mapping = aes(x = team, y = raptor_defense))+
+  geom_boxplot()+
+  labs(
+    x = "Playoff Teams 2022-2023 Season",
+    y = "RAPTOR Defense Rating (box score and on-off)",
+    title = "RAPTOR Defense Rating by NBA Playoff Team"
+  )
 graph
 
 graph_2 <- raptor |>
   filter(season_type == "PO", team == "LAC")|>
   group_by(team)|>
-  ggplot(mapping = aes(x = player_name, y = raptor_box_defense))+
+  ggplot(mapping = aes(x = player_name, y = raptor_defense))+
   geom_point()
+  
 graph_2
-fit_1 <- lm(war_playoffs ~ raptor_box_defense, data = raptor)
+fit_1 <- lm(war_playoffs ~ raptor_defense, data = raptor)
 fit_1
 fit_2 <- lm(war_playoffs ~ predator_defense, data = raptor)
 fit_2
