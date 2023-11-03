@@ -17,12 +17,12 @@ Sports players and coaches often emphasize that â€œdefense wins championships.â€
 
 ##Milestone 3: Data Visualization
 
-```{r, fig.width = 15}
+```{r, fig.width = 10}
 library(tidyverse)
 library(infer)
 raptor <- read.csv("latest_RAPTOR_by_team.csv")
-raptor
-graph <- raptor |>
+
+team_raptor <- raptor |>
   filter(season_type == "PO")|>
   ggplot(mapping = aes(x = team, y = raptor_defense))+
   geom_boxplot()+
@@ -31,20 +31,29 @@ graph <- raptor |>
     y = "RAPTOR Defense Rating (box score and on-off)",
     title = "RAPTOR Defense Rating by NBA Playoff Team"
   )
-graph
+team_raptor
+```
 
-graph_2 <- raptor |>
+
+
+This boxplots models the spread of RAPTOR defensive ratings for members of an NBA playoff team during the 2022-2023 season. The x-axis has all 16 teams in the playoffs and the y-axis has the measure for defensive rating (which includes both the box score value and the on-off value). 
+```{r, fig.width = 15}
+
+clippers_raptor <- raptor |>
   filter(season_type == "PO", team == "LAC")|>
   group_by(team)|>
   ggplot(mapping = aes(x = player_name, y = raptor_defense))+
-  geom_point()
-  
-graph_2
-fit_1 <- lm(war_playoffs ~ raptor_defense, data = raptor)
-fit_1
-fit_2 <- lm(war_playoffs ~ predator_defense, data = raptor)
-fit_2
-
+  geom_point()+
+  labs(
+    x = "LA Clippers Player Name",
+    y = "RAPTOR Defense Rating (box score and on-off)",
+    title = "RAPTOR Defense Rating for the 2023 Los Angeles Clippers Playoff Basketball Team"
+  )
+clippers_raptor
 
 ```
+
+
+
+Looking at a specific team in the playoffs, the LA Clippers, this plot calculates the defensive rating for each player individually. This hopes to isolate the defensive impact of each player, such that the team's defensive ratings aren't clouded by the fact that some players' exceptional defensive impacts the team's rating as a whole.
 
