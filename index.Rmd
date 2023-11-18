@@ -7,8 +7,6 @@ output:
     self_contained: false
 ---
 
-
-
 ## Milestone 2: Project Thoughts
 
 I am interested in exploring data related to basketball, in particular how offensive, defensive, and off-ball statistics influence a player's impact on the game. Alternatively, I'm interested in analyzing data about student debt and how that affects future choices, such as buying a home. Finally, I am possibly interested in looking at food price data and how that affects consumer choices.
@@ -56,4 +54,43 @@ clippers_raptor
 
 
 Looking at a specific team in the playoffs, the LA Clippers, this plot calculates the defensive rating for each player individually. This hopes to isolate the defensive impact of each player, such that the team's defensive ratings aren't clouded by the fact that some players' exceptional defensive impacts the team's rating as a whole.
+
+
+## Milestone 4: 
+Analysis: Impact of defensive rating on postseason win rate.
+
+```{r}
+raptor <- raptor|>
+  filter(season_type == "PO")|>
+  group_by(team)
+
+
+avg_defensive_stats_postseason <- raptor|>
+  summarize(mean_box_defense = mean(raptor_box_defense), mean_onoff_defense = mean(raptor_onoff_defense), mean_raptor_defense = mean(raptor_defense), mean_predator_defense = mean(predator_defense))
+avg_defensive_stats_postseason
+
+
+postseason_wins_raptor <- raptor |>
+  summarize(mean_defense = mean(raptor_defense))|>
+  pivot_wider(
+    names_from = team,
+    values_from = mean_defense
+  )|>
+  knitr::kable(digits = 2)
+postseason_wins_raptor
+
+mean_defense_value <- raptor |>
+  mutate(mean_defense = mean(raptor_defense))
+mean_defense_value
+
+
+fit_1 <- lm(mean_defense ~ war_playoffs, data = mean_defense_value) 
+fit_1 
+
+```
+DATA ANALYSIS: I first filtered the data to only 16 NBA teams that competed in the postseason. Then, I grouped the data by teams and used this calculated the average defensive rating for each type of defensive category (box-defense, on_off defense, the combination of the two, and finally, the predicted defensive rating). For reference, the variable raptor_box_defense calculates the points above average per 100 possessions added by player on defense, based only on box score estimate. The variable raptor_onoff_defense calculates the points above average per 100 possessions added by player on defense, based only on plus-minus data, and the raptor_defense values are the points above average per 100 possessions added by player on defense, using both box and on-off components.
+
+Then, I calculated the average defensive point value for each team separately and visualized that in a knitted and pivoted table for all 16 NBA teams. 
+
+Finally, I ran a regression analysis on the effect of average defensive impact on postseason playoff wins to see if there was a stastically significant relationship. By taking the linear regression of average raptor defense on playoffs wins, we find a positive coefficient of 0.03405. This means that on average, for an increase of 1 point above average per 100 posessions added by a player on defense, there will be a 0.03405 positive increase in wins above replacement during the playoffs. This means that there is a positive relationship between the average number of points converted because of defense on how many wins a team received in the postseason, thereby affirming my hypothesis in part that defense is essential to winning championships.
 
