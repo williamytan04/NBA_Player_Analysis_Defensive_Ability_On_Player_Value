@@ -6,24 +6,29 @@ output:
   distill::distill_article:
     self_contained: false
 ---
+Introduction:
 
-## Milestone 2: Project Thoughts
+  The game of basketball is quickly becoming more complex. From the popularization of the three-point shot to advanced off-ball tactics, there's many aspects of basketball that make it difficult for a single team to dominate the NBA. Yet an age-old debate remains: is offense or defensive more important? As more and more athletic, tough, and talented modern players have entered the sport, basketball has become all about glorifying offensive plays. From game-winning shots to ankle-breaking handles to the MVP voting race (which is often influenced most heavily by a player's average points per game), the role of defense remains secondary and out of the limelight. To push back against the narrative, I want to analyze whether points above average per 100 possessions added by a player on defense has a correlative relationship with how many wins a player’s team accumulates during the postseason. In short, does defense serve as a metric and predictor of a team's success? To analyze this impact, I am using a data set that utilizes a sports metric system called RAPTOR. RAPTOR is a plus-minus statistic that measures the number of points a player contributes to his team’s offense and defense per 100 possessions, relative to a league-average player. My hypothesis is that teams with a greater number of points above average per 100 possessions on defense over the course of the season will correlate positively with how many wins a team accrues in the postseason (advancing deeper into the playoffs), thus showing that good offense is a necessity, but so is good defense. Young players may take away an important statistical result that defense may, in fact, win championships. 
+RUN A ERGRESSION OF OFFENSIVE POINTS PER GAME AND COMPARE WTIH REGRESSION OF DEFENSVE POINTS CONVERTED. Does offense or defense make more of an impact? 
 
-I am interested in exploring data related to basketball, in particular how offensive, defensive, and off-ball statistics influence a player's impact on the game. Alternatively, I'm interested in analyzing data about student debt and how that affects future choices, such as buying a home. Finally, I am possibly interested in looking at food price data and how that affects consumer choices.
 
-Sports players and coaches often emphasize that “defense wins championships.” I want to analyze whether points above average per 100 possessions added by a player on defense have a correlative relationship with how many wins a player’s team accumulates during a season. To analyze this impact I am using a data set that utilizes a sports metric system called RAPTOR. RAPTOR is a plus-minus statistic that measures the number of points a player contributes to his team’s offense and defense per 100 possessions, relative to a league-average player. My hypothesis is that players with a greater number of points above average per 100 possessions on defense over the course of their career will impact the course of their team’s season and how many wins a team accrues. My sample is comprised of all NBA players from the 2014 season onward and tracks their statistics each year they play in the NBA. My unit of analysis is a particular player on a team during a season (i.e. Precious Achiuwa on the Toronto Raptors during the 2022 season). My explanatory variable of interest is the defense point statistics for that player, which is measured in points above average for 100 possessions (thereby indicating an “effective” performance on defense). This is a variable called raptor_onoff_defense which utilizes plus-minus impact data. For context, plus−minus is a sports statistic used to measure a player's impact, represented by the difference between their team's total scoring versus their opponent's when the player is in the game. My outcome variable is the number of wins a team receives in a season. This variable is simply numeric, with a higher number indicating a greater number of wins and a more positive team performance across the season. If I observe a greater number of wins with a positive average defensive points statistic for a player across their career, this would provide support for my hypothesis that players’ defense impacts the margin by which their team wins games. If, on the other hand, I see fewer defensive points stats impacting the number of wins, my hypothesis is incorrect. When I run my regression of the two variables, a positive, significant coefficient would indicate support for my hypothesis.
+I want to analyze whether points above average per 100 possessions added by a player on defense has a correlative relationship with how many wins a player’s team accumulates during the postseason. To analyze this impact I am using a data set that utilizes a sports metric system called RAPTOR. RAPTOR is a plus-minus statistic that measures the number of points a player contributes to his team’s offense and defense per 100 possessions, relative to a league-average player. My hypothesis is that players with a greater number of points above average per 100 possessions on defense over the course of their career will impact the course of their team’s season and how many wins a team accrues. My sample is comprised of all NBA players from the 2021 season and tracks their statistics. My unit of analysis is a particular player on a team during a season (i.e. Precious Achiuwa on the Toronto Raptors during the 2022 season). My explanatory variable of interest is the defense point statistics for that player, which is measured in points above average for 100 possessions (thereby indicating an “effective” performance on defense). This is a variable called raptor_onoff_defense which utilizes plus-minus impact data. For context, plus−minus is a sports statistic used to measure a player's impact, represented by the difference between their team's total scoring versus their opponent's when the player is in the game. My outcome variable is the number of wins a team receives in a season. This variable is simply numeric, with a higher number indicating a greater number of wins and a more positive team performance across the season. If I observe a greater number of wins with a positive average defensive points statistic for a player across their career, this would provide support for my hypothesis that players’ defense impacts the margin by which their team wins games. If, on the other hand, I see fewer defensive points stats impacting the number of wins, my hypothesis is incorrect. When I run my regression of the two variables, a positive, significant coefficient would indicate support for my hypothesis.
 
-##Milestone 3: Data Visualization
+Data:
+
+
+Results:
 
 ```{r, fig.width = 10}
 library(tidyverse)
 library(infer)
 raptor <- read.csv("latest_RAPTOR_by_team.csv")
-
+raptor2 <- read.csv("latest_RAPTOR_by_team.csv")
 team_raptor <- raptor |>
   filter(season_type == "PO")|>
   ggplot(mapping = aes(x = team, y = raptor_defense))+
   geom_boxplot()+
+  facet_wrap(~ team)|>
   labs(
     x = "Playoff Teams 2022-2023 Season",
     y = "RAPTOR Defense Rating (box score and on-off)",
@@ -31,9 +36,6 @@ team_raptor <- raptor |>
   )
 team_raptor
 ```
-
-
-
 This boxplots models the spread of RAPTOR defensive ratings for members of an NBA playoff team during the 2022-2023 season. The x-axis has all 16 teams in the playoffs and the y-axis has the measure for defensive rating (which includes both the box score value and the on-off value). 
 ```{r, fig.width = 15}
 
@@ -50,47 +52,118 @@ clippers_raptor <- raptor |>
 clippers_raptor
 
 ```
-
-
-
 Looking at a specific team in the playoffs, the LA Clippers, this plot calculates the defensive rating for each player individually. This hopes to isolate the defensive impact of each player, such that the team's defensive ratings aren't clouded by the fact that some players' exceptional defensive impacts the team's rating as a whole.
 
 
-## Milestone 4: 
-Analysis: Impact of defensive rating on postseason win rate.
 
-```{r}
-raptor <- raptor|>
-  filter(season_type == "PO")|>
-  group_by(team)
-
-
-avg_defensive_stats_postseason <- raptor|>
-  summarize(mean_box_defense = mean(raptor_box_defense), mean_onoff_defense = mean(raptor_onoff_defense), mean_raptor_defense = mean(raptor_defense), mean_predator_defense = mean(predator_defense))
-avg_defensive_stats_postseason
-
-
-postseason_wins_raptor <- raptor |>
+postseason_avg_defense <- raptor |>
   summarize(mean_defense = mean(raptor_defense))|>
   pivot_wider(
     names_from = team,
     values_from = mean_defense
   )|>
   knitr::kable(digits = 2)
-postseason_wins_raptor
+postseason_avg_defense
 
-mean_defense_value <- raptor |>
-  mutate(mean_defense = mean(raptor_defense))
-mean_defense_value
+## Milestone 4: 
+Analysis: Impact of defensive rating on postseason win rate.
+
+```{r}
+library(modelsummary)
+
+pooled_reg_def <- lm(war_reg_season ~ raptor_defense, data = raptor2)
+pooled_reg_off <- lm(war_reg_season ~ raptor_offense, data = raptor2)
+
+modelsummary(pooled_reg_def, stars = c("*"=0.05,
+                                       "**"=0.01,
+                                       "***"=0.001))
+modelsummary(pooled_reg_off, stars = c("*"=0.05,
+                                       "**"=0.01,
+                                       "***"=0.001))
+# Get all unique team names
+team_names <- unique(raptor2$team)[-1]
+
+# Prepare empty data frame to store regression values for each team
+output <- data.frame(matrix(ncol = 7, nrow = length(team_names)))
+
+# Rename columns
+names(output) <- c("team", "est.def", "se.def", "p.def",
+                   "est.off", "se.off", "p.off")
+
+# Initiate for loop, loop across all team names
+for (i in 1:length(team_names)) {
+  print(i)
+  # Indicate which team we're looking at based on i value
+  output$team[i] <- team_names[i]
+  
+  # Subset data down to certain team based on previous step
+  raptor2_subset <- raptor2|>
+  filter(team == team_names[i])
+  
+  # Conduct regression for defense and offense within team
+  fit_1_intermediate <- lm(war_reg_season ~ raptor_defense, data = raptor2_subset)
+  fit_2_intermediate <- lm(war_reg_season ~ raptor_offense, data = raptor2_subset)
+  
+  # Store values for each team
+  output$est.def[i] <- summary(fit_1_intermediate)$coefficients[2,1]
+  output$se.def[i] <- summary(fit_1_intermediate)$coefficients[2,2]
+  output$p.def[i] <- summary(fit_1_intermediate)$coefficients[2,4]
+  output$est.off[i] <- summary(fit_2_intermediate)$coefficients[2,1]
+  output$se.off[i] <- summary(fit_2_intermediate)$coefficients[2,2]
+  output$p.off[i] <- summary(fit_2_intermediate)$coefficients[2,4]
+  
+}
+
+# Compute upper and lower bounds of CI using se * z-score +/- est
+output <- output |>
+  mutate(
+    ci.lb.def = est.def - qnorm(0.975)*se.def,
+    ci.up.def = est.def + qnorm(0.975)*se.def,
+    ci.lb.off = est.off - qnorm(0.975)*se.off,
+    ci.up.off = est.off + qnorm(0.975)*se.off,
+  )
+
+# Determine which coefficients are signifcant
+output <- output |> 
+  mutate(
+    significance.def = as.factor(ifelse(p.def < 0.05, "yes", "no")),
+    significance.off = as.factor(ifelse(p.off < 0.05, "yes", "no"))
+  )
 
 
-fit_1 <- lm(mean_defense ~ war_playoffs, data = mean_defense_value) 
-fit_1 
+def_plot <- ggplot(aes(x = team, y = est.def), data = output) +
+  geom_point(aes(color = significance.def)) + 
+  geom_errorbar(aes(ymin = ci.lb.def, 
+                    ymax = ci.up.def, 
+                    width = 0.2, color = significance.def)) +
+  theme(axis.text.x = element_text(angle=90, hjust =1)) + 
+  xlab("Team") + ylab("Coefficient on raptor_defense") +
+  scale_color_manual(name = "Significant or not?", 
+                     labels = c("no", "yes"), 
+                     values = c("red", "forestgreen"))
+def_plot
 
+off_plot <- ggplot(aes(x = team, y = est.off), data = output) +
+  geom_point(aes(color = significance.off)) + 
+  geom_errorbar(aes(ymin = ci.lb.off, 
+                    ymax = ci.up.off, 
+                    width = 0.2, color = significance.off)) +
+  theme(axis.text.x = element_text(angle=90, hjust =1)) + 
+  xlab("Team") + ylab("Coefficient on raptor_offense") +
+  scale_color_manual(name = "Significant or not?", 
+                     labels = c("no", "yes"), 
+                     values = c("red", "forestgreen"))
+off_plot
 ```
+
+
+
+
 I first filtered the data to only 16 NBA teams that competed in the postseason. Then, I grouped the data by teams and used this calculated the average defensive rating for each type of defensive category (box-defense, on_off defense, the combination of the two, and finally, the predicted defensive rating). For reference, the variable raptor_box_defense calculates the points above average per 100 possessions added by player on defense, based only on box score estimate. The variable raptor_onoff_defense calculates the points above average per 100 possessions added by player on defense, based only on plus-minus data, and the raptor_defense values are the points above average per 100 possessions added by player on defense, using both box and on-off components.
 
 Then, I calculated the average defensive point value for each team separately and visualized that in a knitted and pivoted table for all 16 NBA teams. 
 
-Finally, I ran a regression analysis on the effect of average defensive impact on postseason playoff wins to see if there was a stastically significant relationship. By taking the linear regression of average raptor defense on playoffs wins, we find a positive coefficient of 0.03405. This means that on average, for an increase of 1 point above average per 100 posessions added by a player on defense, there will be a 0.03405 positive increase in wins above replacement during the playoffs. This means that there is a positive relationship between the average number of points converted because of defense on how many wins a team received in the postseason, thereby affirming my hypothesis in part that defense is essential to winning championships.
+Finally, I ran a regression  on the effect of average defensive impact on postseason playoff wins to see if there was a statistically significant relationship. By taking the linear regression of average raptor defense on playoffs wins, we find a positive coefficient of 0.03405. This means that on average, for an increase of 1 point above average per 100 posessions added by a player on defense, there will be a 0.03405 positive increase in wins above replacement during the playoffs. This means that there is a positive relationship between the average number of points converted because of defense on how many wins a team received in the postseason, thereby affirming my hypothesis in part that defense translates to post-season success.
+
+Looking for teams that have coefficients on defense higher than coefficients on offense. Would signify greater number of games won for 
 

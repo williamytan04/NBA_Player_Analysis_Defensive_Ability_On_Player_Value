@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-1-2.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","latest_RAPTOR_by_team.csv"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-1-2.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-3-2.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/kePrint-0.0.1/kePrint.js","index_files/lightable-0.0.1/lightable.css","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","latest_RAPTOR_by_team.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1473,6 +1473,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_distill-->
   <script src="index_files/header-attrs-2.24/header-attrs.js"></script>
+  <script src="index_files/kePrint-0.0.1/kePrint.js"></script>
+  <link href="index_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="index_files/popper-2.6.0/popper.min.js"></script>
   <link href="index_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1517,20 +1519,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<h2 id="milestone-2-project-thoughts">Milestone 2: Project Thoughts</h2>
-<p>I am interested in exploring data related to basketball, in particular how offensive, defensive, and off-ball statistics influence a player’s impact on the game. Alternatively, I’m interested in analyzing data about student debt and how that affects future choices, such as buying a home. Finally, I am possibly interested in looking at food price data and how that affects consumer choices.</p>
-<p>Sports players and coaches often emphasize that “defense wins championships.” I want to analyze whether points above average per 100 possessions added by a player on defense have a correlative relationship with how many wins a player’s team accumulates during a season. To analyze this impact I am using a data set that utilizes a sports metric system called RAPTOR. RAPTOR is a plus-minus statistic that measures the number of points a player contributes to his team’s offense and defense per 100 possessions, relative to a league-average player. My hypothesis is that players with a greater number of points above average per 100 possessions on defense over the course of their career will impact the course of their team’s season and how many wins a team accrues. My sample is comprised of all NBA players from the 2014 season onward and tracks their statistics each year they play in the NBA. My unit of analysis is a particular player on a team during a season (i.e. Precious Achiuwa on the Toronto Raptors during the 2022 season). My explanatory variable of interest is the defense point statistics for that player, which is measured in points above average for 100 possessions (thereby indicating an “effective” performance on defense). This is a variable called raptor_onoff_defense which utilizes plus-minus impact data. For context, plus−minus is a sports statistic used to measure a player’s impact, represented by the difference between their team’s total scoring versus their opponent’s when the player is in the game. My outcome variable is the number of wins a team receives in a season. This variable is simply numeric, with a higher number indicating a greater number of wins and a more positive team performance across the season. If I observe a greater number of wins with a positive average defensive points statistic for a player across their career, this would provide support for my hypothesis that players’ defense impacts the margin by which their team wins games. If, on the other hand, I see fewer defensive points stats impacting the number of wins, my hypothesis is incorrect. When I run my regression of the two variables, a positive, significant coefficient would indicate support for my hypothesis.</p>
-<p>##Milestone 3: Data Visualization</p>
+<p>Introduction:</p>
+<p>The game of basketball is quickly becoming more complex. From the popularization of the three-point shot to advanced off-ball tactics, there’s many aspects of basketball that make it difficult for a single team to dominate the NBA. Yet an age-old debate remains: is offense or defensive more important? As more and more athletic, tough, and talented modern players have entered the sport, basketball has become all about glorifying offensive plays. From game-winning shots to ankle-breaking handles to the MVP voting race (which is often influenced most heavily by a player’s average points per game), the role of defense remains secondary and out of the limelight. To push back against the narrative, I want to analyze whether points above average per 100 possessions added by a player on defense has a correlative relationship with how many wins a player’s team accumulates during the postseason. In short, does defense serve as a metric and predictor of a team’s success? To analyze this impact, I am using a data set that utilizes a sports metric system called RAPTOR. RAPTOR is a plus-minus statistic that measures the number of points a player contributes to his team’s offense and defense per 100 possessions, relative to a league-average player. My hypothesis is that teams with a greater number of points above average per 100 possessions on defense over the course of the season will correlate positively with how many wins a team accrues in the postseason (advancing deeper into the playoffs), thus showing that good offense is a necessity, but so is good defense. Young players may take away an important statistical result that defense may, in fact, win championships.
+RUN A ERGRESSION OF OFFENSIVE POINTS PER GAME AND COMPARE WTIH REGRESSION OF DEFENSVE POINTS CONVERTED. Does offense or defense make more of an impact?</p>
+<p>I want to analyze whether points above average per 100 possessions added by a player on defense has a correlative relationship with how many wins a player’s team accumulates during the postseason. To analyze this impact I am using a data set that utilizes a sports metric system called RAPTOR. RAPTOR is a plus-minus statistic that measures the number of points a player contributes to his team’s offense and defense per 100 possessions, relative to a league-average player. My hypothesis is that players with a greater number of points above average per 100 possessions on defense over the course of their career will impact the course of their team’s season and how many wins a team accrues. My sample is comprised of all NBA players from the 2021 season and tracks their statistics. My unit of analysis is a particular player on a team during a season (i.e. Precious Achiuwa on the Toronto Raptors during the 2022 season). My explanatory variable of interest is the defense point statistics for that player, which is measured in points above average for 100 possessions (thereby indicating an “effective” performance on defense). This is a variable called raptor_onoff_defense which utilizes plus-minus impact data. For context, plus−minus is a sports statistic used to measure a player’s impact, represented by the difference between their team’s total scoring versus their opponent’s when the player is in the game. My outcome variable is the number of wins a team receives in a season. This variable is simply numeric, with a higher number indicating a greater number of wins and a more positive team performance across the season. If I observe a greater number of wins with a positive average defensive points statistic for a player across their career, this would provide support for my hypothesis that players’ defense impacts the margin by which their team wins games. If, on the other hand, I see fewer defensive points stats impacting the number of wins, my hypothesis is incorrect. When I run my regression of the two variables, a positive, significant coefficient would indicate support for my hypothesis.</p>
+<p>Data:</p>
+<p>Results:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/infer'>infer</a></span><span class='op'>)</span></span>
 <span><span class='va'>raptor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"latest_RAPTOR_by_team.csv"</span><span class='op'>)</span></span>
-<span></span>
+<span><span class='va'>raptor2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"latest_RAPTOR_by_team.csv"</span><span class='op'>)</span></span>
 <span><span class='va'>team_raptor</span> <span class='op'>&lt;-</span> <span class='va'>raptor</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>season_type</span> <span class='op'>==</span> <span class='st'>"PO"</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>season_type</span> <span class='op'>==</span> <span class='st'>"PO"</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>team</span>, y <span class='op'>=</span> <span class='va'>raptor_defense</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>team</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    x <span class='op'>=</span> <span class='st'>"Playoff Teams 2022-2023 Season"</span>,</span>
 <span>    y <span class='op'>=</span> <span class='st'>"RAPTOR Defense Rating (box score and on-off)"</span>,</span>
@@ -1544,8 +1549,8 @@ This boxplots models the spread of RAPTOR defensive ratings for members of an NB
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>clippers_raptor</span> <span class='op'>&lt;-</span> <span class='va'>raptor</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>season_type</span> <span class='op'>==</span> <span class='st'>"PO"</span>, <span class='va'>team</span> <span class='op'>==</span> <span class='st'>"LAC"</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>team</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>season_type</span> <span class='op'>==</span> <span class='st'>"PO"</span>, <span class='va'>team</span> <span class='op'>==</span> <span class='st'>"LAC"</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>team</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>player_name</span>, y <span class='op'>=</span> <span class='va'>raptor_defense</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
@@ -1558,151 +1563,360 @@ This boxplots models the spread of RAPTOR defensive ratings for members of an NB
 <p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="1440" /></p>
 </div>
 <p>Looking at a specific team in the playoffs, the LA Clippers, this plot calculates the defensive rating for each player individually. This hopes to isolate the defensive impact of each player, such that the team’s defensive ratings aren’t clouded by the fact that some players’ exceptional defensive impacts the team’s rating as a whole.</p>
+<p>postseason_avg_defense &lt;- raptor |&gt;
+summarize(mean_defense = mean(raptor_defense))|&gt;
+pivot_wider(
+names_from = team,
+values_from = mean_defense
+)|&gt;
+knitr::kable(digits = 2)
+postseason_avg_defense</p>
 <h2 id="milestone-4">Milestone 4:</h2>
 <p>Analysis: Impact of defensive rating on postseason win rate.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>raptor</span> <span class='op'>&lt;-</span> <span class='va'>raptor</span><span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>season_type</span> <span class='op'>==</span> <span class='st'>"PO"</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>team</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modelsummary.com'>modelsummary</a></span><span class='op'>)</span></span>
 <span></span>
+<span><span class='va'>pooled_reg_def</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_reg_season</span> <span class='op'>~</span> <span class='va'>raptor_defense</span>, data <span class='op'>=</span> <span class='va'>raptor2</span><span class='op'>)</span></span>
+<span><span class='va'>pooled_reg_off</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_reg_season</span> <span class='op'>~</span> <span class='va'>raptor_offense</span>, data <span class='op'>=</span> <span class='va'>raptor2</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>avg_defensive_stats_postseason</span> <span class='op'>&lt;-</span> <span class='va'>raptor</span><span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarize</a></span><span class='op'>(</span>mean_box_defense <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>raptor_box_defense</span><span class='op'>)</span>, mean_onoff_defense <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>raptor_onoff_defense</span><span class='op'>)</span>, mean_raptor_defense <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>raptor_defense</span><span class='op'>)</span>, mean_predator_defense <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>predator_defense</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>avg_defensive_stats_postseason</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>pooled_reg_def</span>, stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"*"</span><span class='op'>=</span><span class='fl'>0.05</span>,</span>
+<span>                                       <span class='st'>"**"</span><span class='op'>=</span><span class='fl'>0.01</span>,</span>
+<span>                                       <span class='st'>"***"</span><span class='op'>=</span><span class='fl'>0.001</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code># A tibble: 16 × 5
-   team  mean_box_defense mean_onoff_defense mean_raptor_defense
-   &lt;chr&gt;            &lt;dbl&gt;              &lt;dbl&gt;               &lt;dbl&gt;
- 1 ATL            -0.178              -3.75               -0.895
- 2 BOS            -1.77               -1.05               -1.75 
- 3 BRK             0.0945              6.55                1.45 
- 4 CLE             4.48                5.81                4.93 
- 5 DEN            -1.59                9.28                0.519
- 6 GSW             1.97               -0.339               1.56 
- 7 LAC            -1.36               -1.24               -1.30 
- 8 LAL            -0.608               3.99                0.269
- 9 MEM             0.923               1.71                1.12 
-10 MIA             1.87               -0.524               1.45 
-11 MIL            -3.35               -4.03               -3.60 
-12 MIN            -1.69                3.94               -0.594
-13 NYK             2.17                6.50                3.15 
-14 PHI            -1.83               -1.18               -1.84 
-15 PHO            -2.15                1.62               -1.45 
-16 SAC             0.143               6.38                1.44 
-# ℹ 1 more variable: mean_predator_defense &lt;dbl&gt;</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>postseason_wins_raptor</span> <span class='op'>&lt;-</span> <span class='va'>raptor</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarize</a></span><span class='op'>(</span>mean_defense <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>raptor_defense</span><span class='op'>)</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span></span>
-<span>    names_from <span class='op'>=</span> <span class='va'>team</span>,</span>
-<span>    values_from <span class='op'>=</span> <span class='va'>mean_defense</span></span>
-<span>  <span class='op'>)</span><span class='op'>|&gt;</span></span>
-<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
-<span><span class='va'>postseason_wins_raptor</span></span></code></pre>
-</div>
-<table>
-<colgroup>
-<col style="width: 7%" />
-<col style="width: 7%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 5%" />
-<col style="width: 7%" />
-<col style="width: 5%" />
-<col style="width: 7%" />
-<col style="width: 7%" />
-<col style="width: 5%" />
-</colgroup>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
 <thead>
-<tr class="header">
-<th style="text-align: right;">ATL</th>
-<th style="text-align: right;">BOS</th>
-<th style="text-align: right;">BRK</th>
-<th style="text-align: right;">CLE</th>
-<th style="text-align: right;">DEN</th>
-<th style="text-align: right;">GSW</th>
-<th style="text-align: right;">LAC</th>
-<th style="text-align: right;">LAL</th>
-<th style="text-align: right;">MEM</th>
-<th style="text-align: right;">MIA</th>
-<th style="text-align: right;">MIL</th>
-<th style="text-align: right;">MIN</th>
-<th style="text-align: right;">NYK</th>
-<th style="text-align: right;">PHI</th>
-<th style="text-align: right;">PHO</th>
-<th style="text-align: right;">SAC</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+ (1)
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">-0.89</td>
-<td style="text-align: right;">-1.75</td>
-<td style="text-align: right;">1.45</td>
-<td style="text-align: right;">4.93</td>
-<td style="text-align: right;">0.52</td>
-<td style="text-align: right;">1.56</td>
-<td style="text-align: right;">-1.3</td>
-<td style="text-align: right;">0.27</td>
-<td style="text-align: right;">1.12</td>
-<td style="text-align: right;">1.45</td>
-<td style="text-align: right;">-3.6</td>
-<td style="text-align: right;">-0.59</td>
-<td style="text-align: right;">3.15</td>
-<td style="text-align: right;">-1.84</td>
-<td style="text-align: right;">-1.45</td>
-<td style="text-align: right;">1.44</td>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+1.018***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.056)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+raptor_defense
+</td>
+<td style="text-align:center;">
+0.052***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+1652
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.014
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.014
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:center;">
+7422.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIC
+</td>
+<td style="text-align:center;">
+7438.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log.Lik.
+</td>
+<td style="text-align:center;">
+−3708.180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:center;">
+2.28
+</td>
 </tr>
 </tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
+</td>
+</tr>
+</tfoot>
 </table>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mean_defense_value</span> <span class='op'>&lt;-</span> <span class='va'>raptor</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>mean_defense <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>raptor_defense</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>mean_defense_value</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>pooled_reg_off</span>, stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"*"</span><span class='op'>=</span><span class='fl'>0.05</span>,</span>
+<span>                                       <span class='st'>"**"</span><span class='op'>=</span><span class='fl'>0.01</span>,</span>
+<span>                                       <span class='st'>"***"</span><span class='op'>=</span><span class='fl'>0.001</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code># A tibble: 434 × 24
-# Groups:   team [16]
-   player_name          player_id season season_type team   poss    mp
-   &lt;chr&gt;                &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;       &lt;chr&gt; &lt;int&gt; &lt;int&gt;
- 1 Bam Adebayo          adebaba01   2023 PO          MIA    1681   850
- 2 Santi Aldama         aldamsa01   2023 PO          MEM     216   101
- 3 Nickeil Alexander-W… alexani01   2023 PO          MIN     292   148
- 4 Grayson Allen        allengr01   2023 PO          MIL     320   149
- 5 Jarrett Allen        allenja01   2023 PO          CLE     364   191
- 6 Kyle Anderson        anderky01   2023 PO          MIN     214   104
- 7 Giannis Antetokounm… antetgi01   2023 PO          MIL     204    91
- 8 Thanasis Antetokoun… antetth01   2023 PO          MIL      11     5
- 9 Deandre Ayton        aytonde01   2023 PO          PHO     660   319
-10 Patrick Baldwin Jr.  baldwpa01   2023 PO          GSW      24    11
-# ℹ 424 more rows
-# ℹ 17 more variables: raptor_box_offense &lt;dbl&gt;,
-#   raptor_box_defense &lt;dbl&gt;, raptor_box_total &lt;dbl&gt;,
-#   raptor_onoff_offense &lt;dbl&gt;, raptor_onoff_defense &lt;dbl&gt;,
-#   raptor_onoff_total &lt;dbl&gt;, raptor_offense &lt;dbl&gt;,
-#   raptor_defense &lt;dbl&gt;, raptor_total &lt;dbl&gt;, war_total &lt;dbl&gt;,
-#   war_reg_season &lt;dbl&gt;, war_playoffs &lt;dbl&gt;, …</code></pre>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+ (1)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+1.186***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.056)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+raptor_offense
+</td>
+<td style="text-align:center;">
+0.113***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+1652
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.087
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.086
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:center;">
+7296.4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIC
+</td>
+<td style="text-align:center;">
+7312.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log.Lik.
+</td>
+<td style="text-align:center;">
+−3645.194
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:center;">
+2.20
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
+</td>
+</tr>
+</tfoot>
+</table>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fit_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mean_defense</span> <span class='op'>~</span> <span class='va'>war_playoffs</span>, data <span class='op'>=</span> <span class='va'>mean_defense_value</span><span class='op'>)</span> </span>
-<span><span class='va'>fit_1</span> </span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Get all unique team names</span></span>
+<span><span class='va'>team_names</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>raptor2</span><span class='op'>$</span><span class='va'>team</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span></span>
+<span></span>
+<span><span class='co'># Prepare empty data frame to store regression values for each team</span></span>
+<span><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>ncol <span class='op'>=</span> <span class='fl'>7</span>, nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>team_names</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Rename columns</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>output</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"team"</span>, <span class='st'>"est.def"</span>, <span class='st'>"se.def"</span>, <span class='st'>"p.def"</span>,</span>
+<span>                   <span class='st'>"est.off"</span>, <span class='st'>"se.off"</span>, <span class='st'>"p.off"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Initiate for loop, loop across all team names</span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>team_names</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span></span>
+<span>  <span class='co'># Indicate which team we're looking at based on i value</span></span>
+<span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>team</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>team_names</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span></span>
+<span>  </span>
+<span>  <span class='co'># Subset data down to certain team based on previous step</span></span>
+<span>  <span class='va'>raptor2_subset</span> <span class='op'>&lt;-</span> <span class='va'>raptor2</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>team</span> <span class='op'>==</span> <span class='va'>team_names</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='co'># Conduct regression for defense and offense within team</span></span>
+<span>  <span class='va'>fit_1_intermediate</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_reg_season</span> <span class='op'>~</span> <span class='va'>raptor_defense</span>, data <span class='op'>=</span> <span class='va'>raptor2_subset</span><span class='op'>)</span></span>
+<span>  <span class='va'>fit_2_intermediate</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_reg_season</span> <span class='op'>~</span> <span class='va'>raptor_offense</span>, data <span class='op'>=</span> <span class='va'>raptor2_subset</span><span class='op'>)</span></span>
+<span>  </span>
+<span>  <span class='co'># Store values for each team</span></span>
+<span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>est.def</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_1_intermediate</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>1</span><span class='op'>]</span></span>
+<span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>se.def</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_1_intermediate</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>]</span></span>
+<span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>p.def</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_1_intermediate</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>4</span><span class='op'>]</span></span>
+<span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>est.off</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_2_intermediate</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>1</span><span class='op'>]</span></span>
+<span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>se.off</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_2_intermediate</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>]</span></span>
+<span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>p.off</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_2_intermediate</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>4</span><span class='op'>]</span></span>
+<span>  </span>
+<span><span class='op'>}</span></span></code></pre>
 </div>
-<pre><code>
-Call:
-lm(formula = mean_defense ~ war_playoffs, data = mean_defense_value)
-
-Coefficients:
- (Intercept)  war_playoffs  
-     0.20257       0.03405  </code></pre>
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+[1] 11
+[1] 12
+[1] 13
+[1] 14
+[1] 15
+[1] 16
+[1] 17
+[1] 18
+[1] 19
+[1] 20
+[1] 21
+[1] 22
+[1] 23
+[1] 24
+[1] 25
+[1] 26
+[1] 27
+[1] 28
+[1] 29
+[1] 30</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Compute upper and lower bounds of CI using se * z-score +/- est</span></span>
+<span><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='va'>output</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    ci.lb.def <span class='op'>=</span> <span class='va'>est.def</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.def</span>,</span>
+<span>    ci.up.def <span class='op'>=</span> <span class='va'>est.def</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.def</span>,</span>
+<span>    ci.lb.off <span class='op'>=</span> <span class='va'>est.off</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.off</span>,</span>
+<span>    ci.up.off <span class='op'>=</span> <span class='va'>est.off</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.off</span>,</span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Determine which coefficients are signifcant</span></span>
+<span><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='va'>output</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    significance.def <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p.def</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"yes"</span>, <span class='st'>"no"</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    significance.off <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p.off</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"yes"</span>, <span class='st'>"no"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='va'>def_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>team</span>, y <span class='op'>=</span> <span class='va'>est.def</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>output</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>significance.def</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>ci.lb.def</span>, </span>
+<span>                    ymax <span class='op'>=</span> <span class='va'>ci.up.def</span>, </span>
+<span>                    width <span class='op'>=</span> <span class='fl'>0.2</span>, color <span class='op'>=</span> <span class='va'>significance.def</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle<span class='op'>=</span><span class='fl'>90</span>, hjust <span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Team"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"Coefficient on raptor_defense"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Significant or not?"</span>, </span>
+<span>                     labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no"</span>, <span class='st'>"yes"</span><span class='op'>)</span>, </span>
+<span>                     values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"forestgreen"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>def_plot</span></span></code></pre>
+</div>
+<img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>off_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>team</span>, y <span class='op'>=</span> <span class='va'>est.off</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>output</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>significance.off</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>ci.lb.off</span>, </span>
+<span>                    ymax <span class='op'>=</span> <span class='va'>ci.up.off</span>, </span>
+<span>                    width <span class='op'>=</span> <span class='fl'>0.2</span>, color <span class='op'>=</span> <span class='va'>significance.off</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle<span class='op'>=</span><span class='fl'>90</span>, hjust <span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Team"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"Coefficient on raptor_offense"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Significant or not?"</span>, </span>
+<span>                     labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no"</span>, <span class='st'>"yes"</span><span class='op'>)</span>, </span>
+<span>                     values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"forestgreen"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>off_plot</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-2.png" width="624" /></p>
 </div>
 <p>I first filtered the data to only 16 NBA teams that competed in the postseason. Then, I grouped the data by teams and used this calculated the average defensive rating for each type of defensive category (box-defense, on_off defense, the combination of the two, and finally, the predicted defensive rating). For reference, the variable raptor_box_defense calculates the points above average per 100 possessions added by player on defense, based only on box score estimate. The variable raptor_onoff_defense calculates the points above average per 100 possessions added by player on defense, based only on plus-minus data, and the raptor_defense values are the points above average per 100 possessions added by player on defense, using both box and on-off components.</p>
 <p>Then, I calculated the average defensive point value for each team separately and visualized that in a knitted and pivoted table for all 16 NBA teams.</p>
-<p>Finally, I ran a regression analysis on the effect of average defensive impact on postseason playoff wins to see if there was a stastically significant relationship. By taking the linear regression of average raptor defense on playoffs wins, we find a positive coefficient of 0.03405. This means that on average, for an increase of 1 point above average per 100 posessions added by a player on defense, there will be a 0.03405 positive increase in wins above replacement during the playoffs. This means that there is a positive relationship between the average number of points converted because of defense on how many wins a team received in the postseason, thereby affirming my hypothesis in part that defense is essential to winning championships.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Finally, I ran a regression on the effect of average defensive impact on postseason playoff wins to see if there was a statistically significant relationship. By taking the linear regression of average raptor defense on playoffs wins, we find a positive coefficient of 0.03405. This means that on average, for an increase of 1 point above average per 100 posessions added by a player on defense, there will be a 0.03405 positive increase in wins above replacement during the playoffs. This means that there is a positive relationship between the average number of points converted because of defense on how many wins a team received in the postseason, thereby affirming my hypothesis in part that defense translates to post-season success.</p>
+<p>Looking for teams that have coefficients on defense higher than coefficients on offense. Would signify greater number of games won for</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
