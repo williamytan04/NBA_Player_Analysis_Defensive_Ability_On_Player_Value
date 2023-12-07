@@ -37,16 +37,16 @@ modelsummary(pooled_reg_off, stars = c("*"=0.05,
 team_names <- unique(raptor2$team)[-1]
 
 # Prepare empty data frame to store regression values for each team
-raptor_analysis <- data.frame(matrix(ncol = 7, nrow = length(team_names)))
+output <- data.frame(matrix(ncol = 7, nrow = length(team_names)))
 
 # Rename columns
-names(raptor_analysis) <- c("team", "est.def", "se.def", "p.def",
+names(output) <- c("team", "est.def", "se.def", "p.def",
                    "est.off", "se.off", "p.off")
 
 # Initiate for loop, loop across all team names
 for (i in 1:length(team_names)) {
   # Indicate which team we're looking at based on i value
-  raptor_analysis$team[i] <- team_names[i]
+  output$team[i] <- team_names[i]
   
   # Subset data down to certain team based on previous step
   raptor2_subset <- raptor2|>
@@ -70,9 +70,9 @@ for (i in 1:length(team_names)) {
 output <- output |>
   mutate(
     ci.lb.def = est.def - qnorm(0.975)*se.def,
-    ci.up.def = est.def + qnorm(0.975)*se.def,
+    ci.ub.def = est.def + qnorm(0.975)*se.def,
     ci.lb.off = est.off - qnorm(0.975)*se.off,
-    ci.up.off = est.off + qnorm(0.975)*se.off,
+    ci.ub.off = est.off + qnorm(0.975)*se.off,
   )
 
 # Determine which coefficients are signifcant
@@ -86,7 +86,7 @@ output <- output |>
 def_plot <- ggplot(aes(x = team, y = est.def), data = output) +
   geom_point(aes(color = significance.def)) + 
   geom_errorbar(aes(ymin = ci.lb.def, 
-                    ymax = ci.up.def, 
+                    ymax = ci.ub.def, 
                     width = 0.2, color = significance.def)) +
   theme(axis.text.x = element_text(angle=90, hjust =1)) + 
   xlab("Team") + ylab("Coefficient on raptor_defense") +
@@ -98,7 +98,7 @@ def_plot
 off_plot <- ggplot(aes(x = team, y = est.off), data = output) +
   geom_point(aes(color = significance.off)) + 
   geom_errorbar(aes(ymin = ci.lb.off, 
-                    ymax = ci.up.off, 
+                    ymax = ci.ub.off, 
                     width = 0.2, color = significance.off)) +
   theme(axis.text.x = element_text(angle=90, hjust =1)) + 
   xlab("Team") + ylab("Coefficient on raptor_offense") +

@@ -1772,7 +1772,6 @@ RMSE
 <span></span>
 <span><span class='co'># Initiate for loop, loop across all team names</span></span>
 <span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>team_names</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span></span>
 <span>  <span class='co'># Indicate which team we're looking at based on i value</span></span>
 <span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>team</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>team_names</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span></span>
 <span>  </span>
@@ -1792,46 +1791,15 @@ RMSE
 <span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>se.off</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_2_intermediate</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>]</span></span>
 <span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>p.off</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_2_intermediate</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>4</span><span class='op'>]</span></span>
 <span>  </span>
-<span><span class='op'>}</span></span></code></pre>
-</div>
-<pre><code>[1] 1
-[1] 2
-[1] 3
-[1] 4
-[1] 5
-[1] 6
-[1] 7
-[1] 8
-[1] 9
-[1] 10
-[1] 11
-[1] 12
-[1] 13
-[1] 14
-[1] 15
-[1] 16
-[1] 17
-[1] 18
-[1] 19
-[1] 20
-[1] 21
-[1] 22
-[1] 23
-[1] 24
-[1] 25
-[1] 26
-[1] 27
-[1] 28
-[1] 29
-[1] 30</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Compute upper and lower bounds of CI using se * z-score +/- est</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='co'># Compute upper and lower bounds of CI using se * z-score +/- est</span></span>
 <span><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='va'>output</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
 <span>    ci.lb.def <span class='op'>=</span> <span class='va'>est.def</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.def</span>,</span>
-<span>    ci.up.def <span class='op'>=</span> <span class='va'>est.def</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.def</span>,</span>
+<span>    ci.ub.def <span class='op'>=</span> <span class='va'>est.def</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.def</span>,</span>
 <span>    ci.lb.off <span class='op'>=</span> <span class='va'>est.off</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.off</span>,</span>
-<span>    ci.up.off <span class='op'>=</span> <span class='va'>est.off</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.off</span>,</span>
+<span>    ci.ub.off <span class='op'>=</span> <span class='va'>est.off</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>qnorm</a></span><span class='op'>(</span><span class='fl'>0.975</span><span class='op'>)</span><span class='op'>*</span><span class='va'>se.off</span>,</span>
 <span>  <span class='op'>)</span></span>
 <span></span>
 <span><span class='co'># Determine which coefficients are signifcant</span></span>
@@ -1845,7 +1813,7 @@ RMSE
 <span><span class='va'>def_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>team</span>, y <span class='op'>=</span> <span class='va'>est.def</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>output</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>significance.def</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>ci.lb.def</span>, </span>
-<span>                    ymax <span class='op'>=</span> <span class='va'>ci.up.def</span>, </span>
+<span>                    ymax <span class='op'>=</span> <span class='va'>ci.ub.def</span>, </span>
 <span>                    width <span class='op'>=</span> <span class='fl'>0.2</span>, color <span class='op'>=</span> <span class='va'>significance.def</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle<span class='op'>=</span><span class='fl'>90</span>, hjust <span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Team"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"Coefficient on raptor_defense"</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -1859,7 +1827,7 @@ RMSE
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>off_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>team</span>, y <span class='op'>=</span> <span class='va'>est.off</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>output</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>significance.off</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>ci.lb.off</span>, </span>
-<span>                    ymax <span class='op'>=</span> <span class='va'>ci.up.off</span>, </span>
+<span>                    ymax <span class='op'>=</span> <span class='va'>ci.ub.off</span>, </span>
 <span>                    width <span class='op'>=</span> <span class='fl'>0.2</span>, color <span class='op'>=</span> <span class='va'>significance.off</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle<span class='op'>=</span><span class='fl'>90</span>, hjust <span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Team"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"Coefficient on raptor_offense"</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -1874,7 +1842,7 @@ RMSE
 <p>Then, I calculated the average defensive point value for each team separately and visualized that in a knitted and pivoted table for all 16 NBA teams.</p>
 <p>Finally, I ran a regression on the effect of average defensive impact on postseason playoff wins to see if there was a statistically significant relationship. By taking the linear regression of average raptor defense on playoffs wins, we find a positive coefficient of 0.03405. This means that on average, for an increase of 1 point above average per 100 posessions added by a player on defense, there will be a 0.03405 positive increase in wins above replacement during the playoffs. This means that there is a positive relationship between the average number of points converted because of defense on how many wins a team received in the postseason, thereby affirming my hypothesis in part that defense translates to post-season success.</p>
 <p>Looking for teams that have coefficients on defense higher than coefficients on offense. Would signify greater number of games won for</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
