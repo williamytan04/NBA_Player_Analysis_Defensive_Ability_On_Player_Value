@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-1-2.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-2-2.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-3-2.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/kePrint-0.0.1/kePrint.js","index_files/lightable-0.0.1/lightable.css","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","latest_RAPTOR_by_team.csv"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-1-2.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-2-2.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-3-2.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-4-2.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/kePrint-0.0.1/kePrint.js","index_files/lightable-0.0.1/lightable.css","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","latest_RAPTOR_by_team.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1519,28 +1519,46 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>Introduction:</p>
-<p>The game of basketball is quickly becoming more complex. From the popularization of the three-point shot to advanced off-ball tactics, there’s many aspects of basketball that make it difficult for a single team to dominate the NBA. Yet an age-old debate remains: is offense or defensive more important? I want to analyze whether points above average per 100 possessions added by a player on defense has a statistically significant relationship with how many wins a player’s team accumulates during the season and how it compares to the number of points above average per 100 possessions added by a player on offense. In short, does defense serve as a legitimate metric and predictor of a team’s success? To analyze this impact, I am using a data set that utilizes a sports metric system called RAPTOR. RAPTOR is a plus-minus statistic that measures the number of points a player contributes to his team’s offense and defense per 100 possessions, relative to a league-average player. In particular, my first explanatory variable of interest is raptor_defense, which utilizes a combination of plus-minus and box impact data to calculate the points above average for 100 possessions added by a player on defense. The second variable of interest is raptor_offense, which is the same as raptor_defense but for offensive points above average for 100 possessions. For context, plus−minus is a sports statistic used to measure a player’s impact, represented by the difference between their team’s total scoring versus their opponent’s when the player is in the game.
-To accomplish this analysis, I will analyze the impact of defense versus offense on the number of wins a team receives through two methods. The first will be a regression with for RAPTOR defense and offense on season wins for all players on all teams. The second process will group the process by team and will take the regression for both offensive and defensive point impact for each team, which will illuminate the inter-team effect. In this sense, we can compare how offensive and defense impact season wins overall across all players and within specific teams, which will give sufficient data to to confirm or reject the central hypothesis: teams with a greater number of points above average per 100 possessions on defense over the course of the season will show higher positive rates of correlation with number of wins than teams with a greater number of points above average per 100 possessions on offense.</p>
-Results:
+<h2 id="introduction">Introduction:</h2>
+<p>The game of basketball is quickly becoming more complex. From the popularization of the three-point shot to advanced off-ball tactics, there are many aspects of basketball that make it difficult for a single team to dominate the NBA. Yet an age-old and fundamental debate remains: is offensive ability or defensive ability more significant to a player’s worth on a team? I want to analyze whether points above average per 100 possessions added on <strong>defense</strong> has a statistically significant relationship to player value, as measured by how many more wins a player is worth than a replacement-level player. Then, I will compare it to the relationship between the number of points above average per 100 possessions added on <strong>offense</strong> and player value. Does high defensive value serve as a legitimate metric to evaluate player value, and could it be more influential than offensive value? Using linear regression and confidence interval analysis, I will utilize statistical data to confirm or reject the central hypothesis: teams with a greater number of points added above average per 100 possessions on defense show a positive significant relationship with the value of a player, as measured by a larger number of wins added than a replacement player. And, under a confidence interval of 95%, there will be more teams that show significance in the regression of defensive value on player value than in the regression of offensive value on player value.</p>
+<h2 id="data">Data</h2>
+<p>To analyze this research question and hypothesis, I am using a data set that utilizes a sports metric system called <strong>RAPTOR</strong> (Robust Algorithm (using) Player Tracking (and) On/Off Ratings). RAPTOR is a new plus-minus statistic that measures the number of points a player contributes to his team’s offense and defense per 100 possessions, relative to a league-average player. For context, plus−minus is a sports statistic used to measure a player’s impact and is represented by the difference between their team’s total scoring versus their opponent’s when the player is in the game. Additionally, I am drawing from the RAPTOR data for every player in the latest 2022-2023 season.
+My first explanatory variable of interest is raptor_defense, which utilizes a combination of plus-minus and box impact data to calculate the points above average for 100 possessions added by a player on defense. For instance, a player with an offensive RAPTOR rating of +2.1 boosts his team’s performance by 2.1 points per 100 offensive possessions while he is on the floor. The second variable of interest is raptor_offense, which is the same as raptor_defense but for offensive points above average for 100 possessions. A player with a defensive RAPTOR of +3.4 would improve his team’s defensive performance by 3.4 points per 100 possessions while he’s on the court. The final variable of interest is war_total. WAR measures a player’s value in all facets of the game by deciphering how many more wins he’s worth than a replacement-level player at his same position.
+To accomplish this analysis, I will analyze defensive impact value versus offensive impact value on the value of a player (measured by wins greater than a replacement-level player) through two methods. The first will be a regression for raptor_defense and raptor_offense on war_total for all players on all teams – a pooled regression for the dependent variables. The second process will group the process by team and will take the regression for both offensive and defensive point impact for players on each team, which will isolate inter-team impact. In this sense, we can compare offensive and defense impact on player value overall across all players and within specific teams.
+The following graph represents the war_total value for every player in the NBA, grouped by team.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/infer'>infer</a></span><span class='op'>)</span></span>
 <span><span class='va'>raptor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"latest_RAPTOR_by_team.csv"</span><span class='op'>)</span></span>
-<span><span class='va'>raptor2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"latest_RAPTOR_by_team.csv"</span><span class='op'>)</span></span></code></pre>
+<span></span>
+<span><span class='va'>raptor_war_plot</span> <span class='op'>&lt;-</span> <span class='va'>raptor</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>team</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>team</span>, y <span class='op'>=</span> <span class='va'>war_total</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle<span class='op'>=</span><span class='fl'>90</span>, hjust <span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Team"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"Total Value in Wins Above Replacement Player"</span><span class='op'>)</span> </span>
+<span><span class='va'>raptor_war_plot</span></span></code></pre>
 </div>
+<p><img src="index_files/figure-html5/unnamed-chunk-1-1.png" width="960" /></p>
 </div>
+<h2 id="results">Results:</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modelsummary.com'>modelsummary</a></span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>pooled_reg_def</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_reg_season</span> <span class='op'>~</span> <span class='va'>raptor_defense</span>, data <span class='op'>=</span> <span class='va'>raptor2</span><span class='op'>)</span></span>
-<span><span class='va'>pooled_reg_off</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_reg_season</span> <span class='op'>~</span> <span class='va'>raptor_offense</span>, data <span class='op'>=</span> <span class='va'>raptor2</span><span class='op'>)</span></span>
+<span><span class='va'>pooled_total_def</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_total</span> <span class='op'>~</span> <span class='va'>raptor_defense</span>, data <span class='op'>=</span> <span class='va'>raptor</span><span class='op'>)</span></span>
+<span><span class='va'>pooled_total_off</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_total</span> <span class='op'>~</span> <span class='va'>raptor_offense</span>, data <span class='op'>=</span> <span class='va'>raptor</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>pooled_reg_def</span>, stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"*"</span><span class='op'>=</span><span class='fl'>0.05</span>,</span>
+<span><span class='va'>var_labels_offense</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"raptor_offense"</span> <span class='op'>=</span> <span class='st'>"RAPTOR Offense"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>var_labels_defense</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"raptor_defense"</span> <span class='op'>=</span> <span class='st'>"RAPTOR Defense"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>pooled_total_def</span>, stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"*"</span><span class='op'>=</span><span class='fl'>0.05</span>,</span>
 <span>                                       <span class='st'>"**"</span><span class='op'>=</span><span class='fl'>0.01</span>,</span>
-<span>                                       <span class='st'>"***"</span><span class='op'>=</span><span class='fl'>0.001</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span>                                       <span class='st'>"***"</span><span class='op'>=</span><span class='fl'>0.001</span><span class='op'>)</span>,</span>
+<span>             coef_map <span class='op'>=</span> <span class='va'>var_labels_defense</span>,</span>
+<span>             gof_map<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nobs"</span>,<span class='st'>"r.squared"</span>,<span class='st'>"adj.r.squared"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
 <thead>
@@ -1555,25 +1573,10 @@ Results:
 <tbody>
 <tr>
 <td style="text-align:left;">
-(Intercept)
+RAPTOR Defense
 </td>
 <td style="text-align:center;">
-1.018***
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.056)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-raptor_defense
-</td>
-<td style="text-align:center;">
-0.052***
+0.062***
 </td>
 </tr>
 <tr>
@@ -1596,7 +1599,7 @@ Num.Obs.
 R2
 </td>
 <td style="text-align:center;">
-0.014
+0.020
 </td>
 </tr>
 <tr>
@@ -1604,39 +1607,7 @@ R2
 R2 Adj.
 </td>
 <td style="text-align:center;">
-0.014
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AIC
-</td>
-<td style="text-align:center;">
-7422.4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-BIC
-</td>
-<td style="text-align:center;">
-7438.6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Log.Lik.
-</td>
-<td style="text-align:center;">
-−3708.180
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RMSE
-</td>
-<td style="text-align:center;">
-2.28
+0.020
 </td>
 </tr>
 </tbody>
@@ -1649,9 +1620,11 @@ RMSE
 </tfoot>
 </table>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>pooled_reg_off</span>, stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"*"</span><span class='op'>=</span><span class='fl'>0.05</span>,</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>pooled_total_off</span>, stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"*"</span><span class='op'>=</span><span class='fl'>0.05</span>,</span>
 <span>                                       <span class='st'>"**"</span><span class='op'>=</span><span class='fl'>0.01</span>,</span>
-<span>                                       <span class='st'>"***"</span><span class='op'>=</span><span class='fl'>0.001</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span>                                       <span class='st'>"***"</span><span class='op'>=</span><span class='fl'>0.001</span><span class='op'>)</span>,</span>
+<span>             coef_map <span class='op'>=</span> <span class='va'>var_labels_offense</span>,</span>
+<span>             gof_map<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nobs"</span>,<span class='st'>"r.squared"</span>,<span class='st'>"adj.r.squared"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
 <thead>
@@ -1666,25 +1639,10 @@ RMSE
 <tbody>
 <tr>
 <td style="text-align:left;">
-(Intercept)
+RAPTOR Offense
 </td>
 <td style="text-align:center;">
-1.186***
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:center;">
-(0.056)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-raptor_offense
-</td>
-<td style="text-align:center;">
-0.113***
+0.131***
 </td>
 </tr>
 <tr>
@@ -1707,7 +1665,7 @@ Num.Obs.
 R2
 </td>
 <td style="text-align:center;">
-0.087
+0.116
 </td>
 </tr>
 <tr>
@@ -1715,39 +1673,7 @@ R2
 R2 Adj.
 </td>
 <td style="text-align:center;">
-0.086
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AIC
-</td>
-<td style="text-align:center;">
-7296.4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-BIC
-</td>
-<td style="text-align:center;">
-7312.6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Log.Lik.
-</td>
-<td style="text-align:center;">
-−3645.194
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-RMSE
-</td>
-<td style="text-align:center;">
-2.20
+0.115
 </td>
 </tr>
 </tbody>
@@ -1760,12 +1686,12 @@ RMSE
 </tfoot>
 </table>
 </div>
-<p>Looking at the regression coefficient for raptor_defense across all teams and all players, we see that on average, an increase of one defensive point added above average for 100 possessions leads to a 0.052 increase in wins during a season. The intercept of 1.018 can be interpreted as the number of wins a team will receive when no defensive points are added above average for 100 possessions. The R2 value of 0.014 indicates that 1.4% percent of the variation in the [insert description of outcome variable] is explained by the variation in the model. The regression coefficient and intercept are both highly significant, as the p-value of less than 0.001 says that data this extreme would only happen in 0.1% of repeated samples if the null were true. In short, there is a high probability of rejecting the null, which means there is a high probability that there isn’t no effect of defense on number of wins during a season for all players across all teams.
-Looking at the regression coefficient for raptor_offense across all teams and all players, we see that on average, an increase of one offensive point added above average for 100 possessions leads to a 0.113 increase in wins during a season. The intercept of 1.186 can be interpreted as the number of wins a team will receive when no offensive points are added above average for 100 possessions. The R2 value of 0.014 indicates that 8.7% percent of the variation in the number of wins accrued is explained by the variation in the model. The regression coefficient and intercept are both highly significant, as the p-value of less than 0.001 says that data this extreme would only happen in 0.1% of repeated samples if the null were true. In short, there is a high probability of rejecting the null, which means there is a high probability that there isn’t no effect of offense on number of wins during a season for all players across all teams.</p>
+<p>Looking at the regression coefficient for raptor_defense on war_total across all teams and all players, we see that, on average, an increase of one defensive point added above average for 100 possessions leads to a 0.062 increase in the value of a player, as measured by the number of wins added above a replacement-level player. The R2 value of 0.02 indicates that 2% percent of the variation in the value of war_total (dependent) is explained by the variation in raptor_defense (independent). The regression coefficient is highly significant, as the p-value of less than 0.001 says that data this extreme would only happen in 0.1% of repeated samples if the null were true. In short, there is a high probability of rejecting the null, which means there is a high probability that there isn’t no effect of defense on the value of a player for all players across all teams.
+Looking at the regression coefficient for raptor_offense on war_total across all teams and all players, we see that, on average, an increase of one offensive point added above average for 100 possessions leads to a 0.131 increase in the value of a player, as measured by the number of wins added above a replacement-level player. The R2 value of 0.116 indicates that 11.6% percent of the variation in the value of war_total (dependent) is explained by the variation in raptor_offense (independent). The regression coefficient is highly significant, as the p-value of less than 0.001 says that data this extreme would only happen in 0.1% of repeated samples if the null were true. In short, there is a high probability of rejecting the null, which means there is a high probability that there isn’t no effect of offense on the value of a player for all players across all teams.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Get all unique team names</span></span>
-<span><span class='va'>team_names</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>raptor2</span><span class='op'>$</span><span class='va'>team</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span></span>
+<span><span class='va'>team_names</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>raptor</span><span class='op'>$</span><span class='va'>team</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span></span>
 <span></span>
 <span><span class='co'># Prepare empty data frame to store regression values for each team</span></span>
 <span><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>ncol <span class='op'>=</span> <span class='fl'>7</span>, nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>team_names</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
@@ -1780,12 +1706,12 @@ Looking at the regression coefficient for raptor_offense across all teams and al
 <span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>team</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>team_names</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span></span>
 <span>  </span>
 <span>  <span class='co'># Subset data down to certain team based on previous step</span></span>
-<span>  <span class='va'>raptor2_subset</span> <span class='op'>&lt;-</span> <span class='va'>raptor2</span><span class='op'>|&gt;</span></span>
+<span>  <span class='va'>raptor_subset</span> <span class='op'>&lt;-</span> <span class='va'>raptor</span><span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>team</span> <span class='op'>==</span> <span class='va'>team_names</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span></span>
 <span>  </span>
 <span>  <span class='co'># Conduct regression for defense and offense within team</span></span>
-<span>  <span class='va'>fit_1_intermediate</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_reg_season</span> <span class='op'>~</span> <span class='va'>raptor_defense</span>, data <span class='op'>=</span> <span class='va'>raptor2_subset</span><span class='op'>)</span></span>
-<span>  <span class='va'>fit_2_intermediate</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_reg_season</span> <span class='op'>~</span> <span class='va'>raptor_offense</span>, data <span class='op'>=</span> <span class='va'>raptor2_subset</span><span class='op'>)</span></span>
+<span>  <span class='va'>fit_1_intermediate</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_total</span> <span class='op'>~</span> <span class='va'>raptor_defense</span>, data <span class='op'>=</span> <span class='va'>raptor_subset</span><span class='op'>)</span></span>
+<span>  <span class='va'>fit_2_intermediate</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>war_total</span> <span class='op'>~</span> <span class='va'>raptor_offense</span>, data <span class='op'>=</span> <span class='va'>raptor_subset</span><span class='op'>)</span></span>
 <span>  </span>
 <span>  <span class='co'># Store values for each team</span></span>
 <span>  <span class='va'>output</span><span class='op'>$</span><span class='va'>est.def</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit_1_intermediate</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>1</span><span class='op'>]</span></span>
@@ -1813,8 +1739,1288 @@ Looking at the regression coefficient for raptor_offense across all teams and al
 <span>    significance.off <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p.off</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"yes"</span>, <span class='st'>"no"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span>  <span class='op'>)</span></span>
 <span></span>
-<span></span>
-<span><span class='va'>def_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>team</span>, y <span class='op'>=</span> <span class='va'>est.def</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>output</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span><span class='va'>output</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+team
+</th>
+<th style="text-align:right;">
+est.def
+</th>
+<th style="text-align:right;">
+se.def
+</th>
+<th style="text-align:right;">
+p.def
+</th>
+<th style="text-align:right;">
+est.off
+</th>
+<th style="text-align:right;">
+se.off
+</th>
+<th style="text-align:right;">
+p.off
+</th>
+<th style="text-align:right;">
+ci.lb.def
+</th>
+<th style="text-align:right;">
+ci.ub.def
+</th>
+<th style="text-align:right;">
+ci.lb.off
+</th>
+<th style="text-align:right;">
+ci.ub.off
+</th>
+<th style="text-align:left;">
+significance.def
+</th>
+<th style="text-align:left;">
+significance.off
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+TOR
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.57
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+-0.26
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MEM
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MIA
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+UTA
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+-0.06
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MIN
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MIL
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CLE
+</td>
+<td style="text-align:right;">
+-0.08
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.20
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NOP
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.78
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ORL
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+POR
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NYK
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.12
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WAS
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHO
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GSW
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHA
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAL
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SAS
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SAC
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+-0.17
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+no
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAC
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+no
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OKC
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1.14
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DAL
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.16
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ATL
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+no
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.10
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0.78
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEN
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BRK
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.04
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:left;">
+no
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BOS
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+no
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.72
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>def_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>team</span>, y <span class='op'>=</span> <span class='va'>est.def</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>output</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>significance.def</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>ci.lb.def</span>, </span>
 <span>                    ymax <span class='op'>=</span> <span class='va'>ci.ub.def</span>, </span>
@@ -1842,7 +3048,12 @@ Looking at the regression coefficient for raptor_offense across all teams and al
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-3-2.png" width="624" /></p>
 </div>
-<p>The second regression model subsets the relationship between offense, defense, and number of wins to the players on each individual team. This will isolate the effect based on team which then can be compared to how the teams historically performed. Theoretically, teams that performed the best should have larger positive coefficients than those that did not. To accomplish this, I created an empty data frame to store the regression value, standard error, and p-value on raptor_offense and raptor_defense for each team. For the calculative process, I set up a for-loop that took the regression for both variables. After, I algebraically found the upper and lower bounds for a 95% confidence interval using the formula: bound = sample mean +/- 1.96 * se. Finally, I created two plots for the spread of offense and defense, color-coded based on which teams reported statistically significant effects.</p>
+<p>The second regression analysis groups the data to players on each individual team and performs the same regression between offensive and defensive impact value on player value. To accomplish this, I created an empty data frame to store the regression coefficient, standard error, and p-value. To calculate these values, I set up a for-loop that took the regression for both variables of interest (offensive and defensive impact value) on player value, as measured by number of wins greater than a replacement player, and stored all relevant values into the knitted table. I algebraically found the upper and lower bounds for a 95% confidence interval using the formula: bound = sample mean +/- 1.96 * se. Finally, to visualize the statistical significance across all teams, I created two separate plots for the regression coefficients and labeled the upper and lower bounds of the confidence interval. The plots were color-coded in green and red based on which teams reported statistically significant effects under a p-value alpha of 0.05.
+Even though teams reported positive regression coefficients associated with the regressions of raptor_defense and raptor_offense on war_total, they did not see statsitical significance under a 95% confidence interval, which means we cannot reject the null hypothesis. This makes it harder to draw a general relationship about offense or defense (especially defense), as there is the possibility that the results could have been by chance. Regarding defense, under a p-alpha of 0.05, out of the 30 NBA teams, only <strong>11 teams</strong> report statistical significance. That means, in a confidence interval of 95%, we can only safely reject the null hypothesis that there is no effect of defensive points added on average over 100 possessions on a player’s value for 11 teams. Conversely, regarding offense, using the same metrics, we find that <strong>26 teams</strong> out of 30 teams reported statistical significance. There are more teams that show statistical significance between offensive impact value on player value than teams that show statistical significance between defensive impact value on player value.</p>
+<h2 id="conclusion">Conclusion:</h2>
+<p>In the first regression analysis, a pooled regression of all players on all teams yielded a positive and statistically significant relationship between the dependent (war_total) on the independents (raptor_defense and raptor_offense), as deemed by regression analysis with a 99% confidence interval. However, when we turn to the regression analysis within teams, for defense, we see that most teams do not see significance, meaning that we cannot reject the null that there is no effect of defensive value on player value. This means that the hypothesis cannot be deemed correct because the pooled regression results do not fully match the team results. It may be that for all players across all teams, good defense may increase value, but when we subset that analysis to specific teams, that relationship doesn’t hold. This is also corroborated with that for the regression on the full data set, the R^2 value for defense is low at 0.02, showing that the in-sample fit isn’t very good. In any case,
+it seems clear that offensive imapct still maintains a more prevalent and impactful part of NBA players’ value than defensive impact.
+As in any data analysis project, there are confounding variables that cloud interpretations of establishing causality between the dependents and independents. First, the experiment seeks to isolate the impact of offense and defense on player value, but this does not exclude the fact that there are certain “star” players on a particular team that can facilitate value onto other players. For instance, multi-faceted players like Nikola Jokic or Stephen Curry can facilitate plays on either end of the floor (offense and defense) and conflate the entire team’s ratings. In doing so, if a player is on the floor at the same time, then they’re going to record more impressive scoring statistics, thereby altering the data. Another confounding variable is the fact that the data set included values for both the regular season (82 games in total) plus certain teams that made the playoffs. Since the playoffs are high-stress, high reward games, offensive and defensive raptor values may be greater than baseline statistics for certain players who rise to the challenge. Finally, there are factors such as strength of coaching and player health that affect how intensely a player can contribute to the offensive and defensive impact of a team. With more time and money, the analysis could take into account player efficiency by controlling more for factors such as pass completion percentages, number of assists, off-ball movement like screens, and general basketball IQ. All of these are technical aspects of the game of basketball that aid in determining a player’s value in wins above a replacement player but are not counted or represented in the offensive and defensive points scored.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
